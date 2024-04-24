@@ -1,10 +1,10 @@
-import { Col, Row, Input, Button, Select, Tag } from 'antd';
-import Todo from '../Todo';
+import { Button, Col, Input, Row, Select, Tag } from 'antd';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodos } from '../../redux/actions';
 import { v4 as uuidv4 } from 'uuid';
-import {  useRef, useState } from 'react';
-import {  remainingTodoList } from '../../redux/selectors';
+import { remainingTodoList } from '../../redux/selectors';
+import Todo from '../Todo';
+import { addTodo } from './todosSlice';
 export default function TodoList() {
     const ref = useRef()
     const [todoName, setTodoName] = useState('');
@@ -12,7 +12,7 @@ export default function TodoList() {
     const todoList = useSelector(remainingTodoList);
     const dispatch = useDispatch();
     const handleAddButtonClick = () => {
-        dispatch(addTodos({
+        dispatch(addTodo({
             name:todoName,
             prioriry:prioriry,
             complete:false,

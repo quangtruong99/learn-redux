@@ -1,7 +1,7 @@
-import { Col, Row, Input, Typography, Radio, Select, Tag } from 'antd';
-import { useEffect, useState } from 'react';
+import { Col, Input, Radio, Row, Select, Tag, Typography } from 'antd';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { prioritiesFilter, searchFilter, statusFilter } from '../../redux/actions';
+import { prioritiesFilterChange, searchFilterChange, statusFilterChange } from './filtersSlice';
 
 const { Search } = Input;
 
@@ -10,18 +10,20 @@ export default function Filters() {
   const [status, setStatus] = useState('All');
   const [priorities,setPriorities] = useState([]);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(searchFilter(searchText))
-  },[searchText])
+  
+  const handleOnchange = (e) => {
+    setSearchText(e.target.value);
+    dispatch(searchFilterChange(e.target.value))
+  }
 
   const handleSetStatus = (e) => {
     setStatus(e.target.value)
-    dispatch(statusFilter(e.target.value))
+    dispatch(statusFilterChange(e.target.value))
   }
 
   const handleSetPriority = (value) => {
     setPriorities(value);
-    dispatch(prioritiesFilter(value))
+    dispatch(prioritiesFilterChange(value))
 
   }
   return (
@@ -32,7 +34,7 @@ export default function Filters() {
         >
           Search
         </Typography.Paragraph>
-        <Search placeholder='input search text' value={searchText} onChange={(e) => setSearchText(e.target.value)}/>
+        <Search placeholder='input search text' value={searchText} onChange={handleOnchange}/>
       </Col>
       <Col sm={24}>
         <Typography.Paragraph

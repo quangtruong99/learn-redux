@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const filtersSlice = createSlice({
     name:'filters',
-    initState: {
+    initialState: {
         search:'',
         status:'All',
         priority: []

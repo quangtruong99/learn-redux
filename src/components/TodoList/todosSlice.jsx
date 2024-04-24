@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // export default todoSliceReducer
 const todosSlice = createSlice({
     name:'todoList',
-    initState: [
+    initialState: [
         {
             id:1,
             name:'Learn redux',

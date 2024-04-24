@@ -5,7 +5,7 @@ import { prioritiesFilterChange, searchFilterChange, statusFilterChange } from '
 
 const { Search } = Input;
 
-export default function Filters() {
+  function Filters() {
   const [searchText, setSearchText] = useState('');
   const [status, setStatus] = useState('All');
   const [priorities,setPriorities] = useState([]);
@@ -76,3 +76,4 @@ export default function Filters() {
     </Row>
   );
 }
+export default Filters

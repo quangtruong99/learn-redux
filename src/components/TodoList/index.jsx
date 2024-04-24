@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { remainingTodoList } from '../../redux/selectors';
 import Todo from '../Todo';
 import { addTodo } from './todosSlice';
-export default function TodoList() {
+  function TodoList() {
     const ref = useRef()
     const [todoName, setTodoName] = useState('');
     const [prioriry,setPrioriry] = useState('Medium');
@@ -50,3 +50,4 @@ export default function TodoList() {
     </Row>
   );
 }
+export default TodoList

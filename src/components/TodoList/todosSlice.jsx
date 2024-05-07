@@ -1,32 +1,12 @@
 
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // export default todoSliceReducer
 const todosSlice = createSlice({
     name:'todoList',
-    initialState: [
-        {
-            id:1,
-            name:'Learn redux',
-            completed:false,
-            prioriry:'Medium'
-        },
-        {
-            id:2,
-            name:'Learn react',
-            completed:true,
-            prioriry:'High'
-        },
-        {
-            id:3,
-            name:'Learn angular',
-            completed:false,
-            prioriry:'Low'
-        }
-    ],
+    initialState: {status:'idle',todo:[]},
     reducers:{
         addTodo:(state,action) => {
-            console.log(1212);
             state.push(action.payload);
         },
         toggleTodoStatus:(state,action) => {
@@ -35,7 +15,26 @@ const todosSlice = createSlice({
                 currentTodo.completed = !currentTodo.completed 
             }
         }
+    },
+    extraReducers:builder => {
+        builder.addCase(fetchTodos.pending,(state,action) =>{
+            state.status = 'loading';
+        })
+        .addCase(fetchTodos.fulfilled,(state,action) => {
+            console.log(action);
+            state.todos = action.payload;
+            state.status = 'idle'
+        })
     }
 })
+
+export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
+    const res = await fetch('/api/todos');
+    console.log(res);
+    const data = await res.json();
+    console.log({data});
+    return data.todos
+})
+
 export const { addTodo, toggleTodoStatus } = todosSlice.actions
 export default todosSlice.reducer
